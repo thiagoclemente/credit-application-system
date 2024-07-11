@@ -11,7 +11,6 @@ data class Customer(
     @Column(nullable = false)
     var lastName: String = "",
 
-
     @Column(nullable = false, unique = true)
     var cpf: String = "",
 
