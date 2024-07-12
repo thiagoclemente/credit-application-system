@@ -5,6 +5,7 @@ import br.com.t2cdigital.credit.application.system.dto.CustomerRequestUpdateDto
 import br.com.t2cdigital.credit.application.system.dto.CustomerResponseDto
 import br.com.t2cdigital.credit.application.system.entity.Customer
 import br.com.t2cdigital.credit.application.system.service.impl.CustomerService
+import jakarta.validation.Valid
 import org.springframework.http.HttpStatus
 import org.springframework.http.ResponseEntity
 import org.springframework.web.bind.annotation.*
@@ -13,7 +14,7 @@ import org.springframework.web.bind.annotation.*
 @RequestMapping("/api/customers")
 class CustomerController(private val customerService: CustomerService) {
     @PostMapping
-    fun saveCustomer(@RequestBody customerRequestCreateDTO: CustomerRequestCreateDto): ResponseEntity<Customer> {
+    fun saveCustomer(@RequestBody @Valid customerRequestCreateDTO: CustomerRequestCreateDto): ResponseEntity<Customer> {
         val customer = customerService.save(customerRequestCreateDTO.toEntity())
         return ResponseEntity.status(HttpStatus.CREATED).body(customer)
     }
@@ -30,7 +31,7 @@ class CustomerController(private val customerService: CustomerService) {
     @PatchMapping()
     fun updateCustomer(
         @RequestParam(value = "customerId") id: Long,
-        @RequestBody customerRequestUpdateDto: CustomerRequestUpdateDto
+        @RequestBody @Valid customerRequestUpdateDto: CustomerRequestUpdateDto
     ): ResponseEntity<CustomerResponseDto> {
         val customer: Customer = customerService.findById(id)
         val customerToUpdate: Customer = customerRequestUpdateDto.toEntity(customer)

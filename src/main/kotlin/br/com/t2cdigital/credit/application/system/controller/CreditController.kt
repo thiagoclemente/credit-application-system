@@ -5,6 +5,7 @@ import br.com.t2cdigital.credit.application.system.dto.CreditResponseDto
 import br.com.t2cdigital.credit.application.system.dto.CreditResponseListDto
 import br.com.t2cdigital.credit.application.system.entity.Credit
 import br.com.t2cdigital.credit.application.system.service.impl.CreditService
+import jakarta.validation.Valid
 import org.apache.coyote.Response
 import org.springframework.http.HttpStatus
 import org.springframework.http.ResponseEntity
@@ -18,7 +19,7 @@ class CreditController(
     private val creditService: CreditService
 ) {
     @PostMapping
-    fun saveCredit(@RequestBody creditRequestCreateDto: CreditRequestCreateDto): ResponseEntity<Credit> {
+    fun saveCredit(@RequestBody @Valid creditRequestCreateDto: CreditRequestCreateDto): ResponseEntity<Credit> {
         val credit = creditService.save(creditRequestCreateDto.toEntity())
         return ResponseEntity.status(HttpStatus.CREATED).body(credit)
     }
