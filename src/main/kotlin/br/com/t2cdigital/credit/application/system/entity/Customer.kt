@@ -1,12 +1,13 @@
 package br.com.t2cdigital.credit.application.system.entity
 
 import jakarta.persistence.*
+import java.math.BigDecimal
 
 @Entity
 @Table(name = "customer")
 data class Customer(
     @Column(nullable = false)
-    var firtName: String = "",
+    var firstName: String = "",
 
     @Column(nullable = false)
     var lastName: String = "",
@@ -19,6 +20,9 @@ data class Customer(
 
     @Column(nullable = false)
     var password: String = "",
+
+    @Column(nullable = false)
+    var income: BigDecimal = BigDecimal.ZERO,
 
     @Column(nullable = false)
     @Embedded
